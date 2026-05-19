@@ -6,7 +6,7 @@ import { ArrowUpRight, User } from "lucide-react";
 // import { headers } from "next/headers";
 
 const Ideacard = ({ idea }) => {
-  console.log(idea);
+  // console.log(idea);
   //  const { data: session, isPending } = authClient.useSession();
   //    const user = session?.user;
   //   const formData = new FormData(e.currentTarget);
