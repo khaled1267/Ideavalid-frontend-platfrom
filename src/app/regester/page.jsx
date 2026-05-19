@@ -13,17 +13,17 @@ export default function Regester() {
   const [loading, setLoading] = useState(false);
 
   const handleRegister = async (e) => {
-      e.preventDefault();
+    e.preventDefault();
     // console.log(e.currentTarget);
 
     const formData = new FormData(e.currentTarget);
     // console.log(formData);
 
     const registerData = Object.fromEntries(formData.entries());
-console.log(registerData);
+    console.log(registerData);
     const { data, error } = await signUp.email({
-    //   ...registerData,
-    email: registerData.email,
+      //   ...registerData,
+      email: registerData.email,
       password: registerData.password,
       name: registerData.name,
       callbackURL: "/",
@@ -32,16 +32,14 @@ console.log(registerData);
     if (data) {
       toast.success("Registration successful");
     }
-      router.push("/");
-      refresh();
+    router.push("/");
+    refresh();
 
     if (error) {
       toast.error("Registration failed");
       return;
     }
-  
   };
-
 
   return (
     <div className="min-h-[85vh] flex flex-col bg-[#F8F9FA] dark:bg-slate-950 py-10 transition-colors duration-300">
@@ -49,10 +47,12 @@ console.log(registerData);
         <div className="w-full max-w-md">
           {/* মূল কার্ড */}
           <div className="bg-white dark:bg-slate-900 p-8 md:p-10 rounded-[2.5rem] border border-gray-100 dark:border-slate-800 shadow-[0_10px_40px_rgba(0,0,0,0.04)] relative overflow-hidden">
-            
             <div className="text-center space-y-2 relative mb-8">
               <h2 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight">
-                Create <span className="bg-gradient-to-r from-[#00A896] to-[#028090] bg-clip-text text-transparent">Account</span>
+                Create{" "}
+                <span className="bg-gradient-to-r from-[#00A896] to-[#028090] bg-clip-text text-transparent">
+                  Account
+                </span>
               </h2>
               <p className="text-gray-400 dark:text-slate-400 font-medium text-xs">
                 Join IdeaVault to validate and explore startup ideas
@@ -60,10 +60,12 @@ console.log(registerData);
             </div>
 
             <form className="space-y-5" onSubmit={handleRegister}>
-              
               {/* ১. ফুল নেম ফিল্ড */}
               <div className="space-y-1.5">
-                <label htmlFor="name" className="text-xs font-bold text-gray-500 dark:text-slate-400 ml-1">
+                <label
+                  htmlFor="name"
+                  className="text-xs font-bold text-gray-500 dark:text-slate-400 ml-1"
+                >
                   Full Name
                 </label>
                 <div className="relative flex items-center">
@@ -81,7 +83,10 @@ console.log(registerData);
 
               {/* ২. ইমেইল ফিল্ড */}
               <div className="space-y-1.5">
-                <label htmlFor="email" className="text-xs font-bold text-gray-500 dark:text-slate-400 ml-1">
+                <label
+                  htmlFor="email"
+                  className="text-xs font-bold text-gray-500 dark:text-slate-400 ml-1"
+                >
                   Email Address
                 </label>
                 <div className="relative flex items-center">
@@ -99,7 +104,10 @@ console.log(registerData);
 
               {/* ৩. প্রোফাইল ইমেজ ফিল্ড */}
               <div className="space-y-1.5">
-                <label htmlFor="image" className="text-xs font-bold text-gray-500 dark:text-slate-400 ml-1">
+                <label
+                  htmlFor="image"
+                  className="text-xs font-bold text-gray-500 dark:text-slate-400 ml-1"
+                >
                   Profile Image URL (Optional)
                 </label>
                 <div className="relative flex items-center">
@@ -116,7 +124,10 @@ console.log(registerData);
 
               {/* ৪. পাসওয়ার্ড ফিল্ড */}
               <div className="space-y-1.5">
-                <label htmlFor="password" className="text-xs font-bold text-gray-500 dark:text-slate-400 ml-1">
+                <label
+                  htmlFor="password"
+                  className="text-xs font-bold text-gray-500 dark:text-slate-400 ml-1"
+                >
                   Password
                 </label>
                 <div className="relative flex items-center">
@@ -140,9 +151,24 @@ console.log(registerData);
               >
                 {loading ? (
                   <span className="flex items-center gap-2">
-                    <svg className="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                    <svg
+                      className="animate-spin h-4 w-4 text-white"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      />
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      />
                     </svg>
                     Creating Account...
                   </span>
@@ -153,6 +179,16 @@ console.log(registerData);
                 )}
               </button>
             </form>
+
+            {/* ─── Forgot Password Link Component ─── */}
+            <div className="flex items-center justify-end pt-1">
+              <Link
+                href="/forgotpassword"
+                className="text-[11px] font-bold text-gray-400 dark:text-slate-500 hover:text-[#00A896] dark:hover:text-teal-400 transition-colors duration-200"
+              >
+                Forgot Password?
+              </Link>
+            </div>
 
             {/* সাইন ইন লিঙ্ক */}
             <div className="text-center pt-5">
@@ -166,7 +202,6 @@ console.log(registerData);
                 </Link>
               </p>
             </div>
-
           </div>
         </div>
       </div>

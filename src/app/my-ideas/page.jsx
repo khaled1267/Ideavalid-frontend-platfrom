@@ -1,15 +1,17 @@
 import React from "react";
-import Ideacard from "@/component/Ideacard"; // আপনার আইডিয়া কার্ড
+import Ideacard from "@/component/Ideacard"; 
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
+import { DeleteModel } from "@/component/deletepage";
+import { EditModal } from "@/component/Editmodel";
 
 // ১. সার্ভার সাইডেই ব্যাকএন্ড থেকে ডেটা ফেচ করার ফাংশন
 async function fetchMyIdeas(userid) {
   try {
     const res = await fetch(`http://localhost:5000/my-ideavalid/${userid}`, {
-      cache: "no-store", // রিয়েল-টাইম ডেটা আপডেট পাওয়ার জন্য ক্যাশিং বন্ধ রাখা হলো
+      cache: "no-store", 
     });
     
     if (!res.ok) return [];
@@ -21,7 +23,7 @@ async function fetchMyIdeas(userid) {
 }
 
 const MyIdeasPage = async () => {
-  // ২. Better-Auth থেকে লগইন থাকা ইউজারের সেশন নেওয়া
+  // ২. Better-Auth থেকে লগইন থাকা ইউজারের সেশন নেওয়া
   const session = await auth.api.getSession({
     headers: await headers(),
   });
@@ -36,7 +38,7 @@ const MyIdeasPage = async () => {
     );
   }
 
-  // ৩. সেশন থেকে আইডি নিয়ে ডাটাবেজ/ব্যাকএন্ড থেকে ডেটা আনা
+  // ৩. সেশন থেকে আইডি নিয়ে ডাটাবেজ/ব্যাকএন্ড থেকে ডেটা আনা
   const userid = session.user.id;
   const ideas = await fetchMyIdeas(userid);
 
@@ -53,8 +55,9 @@ const MyIdeasPage = async () => {
           Add New Idea <ArrowRight size={14} />
         </Link>
       </div>
+      
 
-      {/* 💡 আইডিয়া লিস্ট গ্রিড (আপনার কার্ড দিয়ে রেন্ডার) */}
+      {/* 💡 আইডিয়া লিস্ট গ্রিড */}
       {ideas.length === 0 ? (
         <div className="text-center py-20 border-2 border-dashed border-gray-100 dark:border-slate-800 rounded-[2.5rem]">
           <p className="text-sm text-gray-400 font-semibold">You havent added any startup concepts yet.</p>
@@ -62,8 +65,21 @@ const MyIdeasPage = async () => {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {ideas.map((singleIdea) => (
-            // 💡 আপনার অরিজিনাল Ideacard এখানে ম্যাপিং অবজেক্ট রিসিভ করছে
-            <Ideacard key={singleIdea._id} idea={singleIdea} />
+            <div key={singleIdea._id} className="flex flex-col gap-3">
+              {/* আইডিয়া কার্ড */}
+              <div className="flex justify-between -mb-3">
+                <div>
+                <EditModal ideaData={singleIdea} />
+              </div>
+              <div className="flex justify-end px-2 -py-6">
+                <DeleteModel userid={singleIdea} />
+              </div>
+              </div>
+              <Ideacard idea={singleIdea} />
+              
+              {/* কার্ডের নিচে ডিলিট বাটন যুক্ত করা হলো */}
+              
+            </div>
           ))}
         </div>
       )}

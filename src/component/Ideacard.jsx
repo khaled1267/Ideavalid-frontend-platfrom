@@ -1,10 +1,21 @@
 "use client";
-
 import React from "react";
 import Link from "next/link";
 import { ArrowUpRight, User } from "lucide-react";
+// import { auth } from "@/lib/auth";
+// import { headers } from "next/headers";
 
 const Ideacard = ({ idea }) => {
+  console.log(idea);
+  //  const { data: session, isPending } = authClient.useSession();
+  //    const user = session?.user;
+  //   const formData = new FormData(e.currentTarget);
+  //   const usernameemail = {
+  //     name: formData.get("userName"),
+  //     email: formData.get("email"),
+  //   }
+
+  //   console.log(usernameemail);
   return (
     <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] border border-gray-100 dark:border-slate-800/80 shadow-[0_10px_40px_rgba(0,0,0,0.02)] p-6 md:p-7 flex flex-col justify-between hover:shadow-[0_15px_50px_rgba(0,0,0,0.04)] dark:hover:border-slate-700/50 transition-all duration-300 group relative overflow-hidden">
       <div>
@@ -37,16 +48,25 @@ const Ideacard = ({ idea }) => {
       {/* ─── ৪. ফুটার: ক্রিয়েটর ইনফো এবং ভিউ বাটন ─── */}
       <div className="pt-4 border-t border-gray-100 dark:border-slate-800 flex items-center justify-between gap-3">
         {/* যে ইউজার পোস্ট করেছে তার প্রোফাইল */}
-        <div className="flex items-center gap-2.5 min-w-0">
-          
-
+        <div className="flex items-center gap-3 min-w-0">
+          <div className="w-9 h-9 rounded-full overflow-hidden shrink-0 bg-gray-100 dark:bg-slate-800 flex items-center justify-center border border-gray-200/50 dark:border-slate-700">
+            {idea.userImage ? (
+              <img
+                src={idea.userImage}
+                alt={idea.userName}
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <User className="w-4 h-4 text-gray-400" />
+            )}
+          </div>
           <div className="truncate">
             <p className="text-[10px] text-gray-400 dark:text-slate-500 font-bold uppercase tracking-wider">
               Posted By
             </p>
-            {/* <p className="text-xs font-bold text-slate-700 dark:text-slate-300 truncate max-w-[110px] sm:max-w-[140px]">
-              {idea.userId}
-            </p> */}
+            <h4 className="text-xs font-bold text-slate-700 dark:text-slate-300 truncate max-w-[140px] sm:max-w-[180px]">
+              {idea.userName}
+            </h4>
           </div>
         </div>
 
