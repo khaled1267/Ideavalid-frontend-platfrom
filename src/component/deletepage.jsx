@@ -5,14 +5,14 @@ import { AlertDialog, Button } from "@heroui/react";
 export function DeleteModel({ userid }) {
   // safety check: যদি userid না আসে, তবে এরর হ্যান্ডেল করা
   if (!userid || !userid._id) {
-    return null; 
+    return null;
   }
 
   const { _id } = userid;
 
   const handleDelete = async () => {
     try {
-      const res = await fetch(`http://localhost:5000/my-ideavalid/${_id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/my-ideavalid/${_id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -22,7 +22,7 @@ export function DeleteModel({ userid }) {
       if (res.ok) {
         console.log("Successfully deleted!");
         // এখানে চাইলে উইন্ডো রিলোড বা স্টেট আপডেট করতে পারেন
-        window.location.reload(); 
+        window.location.reload();
       } else {
         console.error("Failed to delete");
       }
@@ -46,8 +46,8 @@ export function DeleteModel({ userid }) {
             </AlertDialog.Header>
             <AlertDialog.Body>
               <p>
-                Are you sure you want to delete this item? 
-                This action cannot be undone.
+                Are you sure you want to delete this item? This action cannot be
+                undone.
               </p>
             </AlertDialog.Body>
             <AlertDialog.Footer>

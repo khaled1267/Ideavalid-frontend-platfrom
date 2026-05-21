@@ -2,24 +2,16 @@
 import React from "react";
 import Link from "next/link";
 import { ArrowUpRight, User } from "lucide-react";
-// import { auth } from "@/lib/auth";
-// import { headers } from "next/headers";
 
 const Ideacard = ({ idea }) => {
-  // console.log(idea);
-  //  const { data: session, isPending } = authClient.useSession();
-  //    const user = session?.user;
-  //   const formData = new FormData(e.currentTarget);
-  //   const usernameemail = {
-  //     name: formData.get("userName"),
-  //     email: formData.get("email"),
-  //   }
+  // 💡 ডাটাবেজে ক্যাটাগরি ফিল্ডের নাম বড় হাতের বা ছোট হাতের যেটাই হোক, সেটিকে সেফলি রিসিভ করার লজিক
+  const displayCategory = idea.Category || idea.category || "General";
+  console.log(displayCategory);
 
-  //   console.log(usernameemail);
   return (
     <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] border border-gray-100 dark:border-slate-800/80 shadow-[0_10px_40px_rgba(0,0,0,0.02)] p-6 md:p-7 flex flex-col justify-between hover:shadow-[0_15px_50px_rgba(0,0,0,0.04)] dark:hover:border-slate-700/50 transition-all duration-300 group relative overflow-hidden">
       <div>
-        {/* ─── ১. আইডিয়া ইমেজ ইউআরএল (যদি থাকে) ─── */}
+        {/* ─── ১.アイデア ইমেজ ইউআরএল ─── */}
         {idea.imageUrl && (
           <div className="w-full h-44 rounded-[1.8rem] overflow-hidden mb-5 bg-gray-50 dark:bg-slate-950 border border-gray-100/50 dark:border-slate-900">
             <img
@@ -27,27 +19,35 @@ const Ideacard = ({ idea }) => {
               alt={idea.title}
               className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
               onError={(e) => {
-                e.target.style.display = "none"; // ইমেজ লিংকে কোনো সমস্যা থাকলে পুরো বক্সটি হাইড হয়ে যাবে
+                e.target.style.display = "none"; 
               }}
             />
           </div>
         )}
 
-        {/* ─── ২. আইডিয়া টাইটেল ─── */}
+        {/* ─── ২.アイデア টাইটেল ─── */}
         <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 tracking-tight flex items-start justify-between gap-2">
           <span className="line-clamp-2">{idea.title}</span>
           <ArrowUpRight className="w-5 h-5 text-gray-300 group-hover:text-[#00A896] shrink-0 transition-colors pt-0.5" />
         </h3>
 
-        {/* ─── ৩. আইডিয়া ডেসক্রিপশন ─── */}
-        <p className="text-gray-500 dark:text-slate-400 text-xs font-medium mb-6 line-clamp-4 leading-relaxed">
-          {idea.detailedDescription || idea.shortDescription}
+        {/* ─── ৩.アイデア ডেসক্রিপশন ─── */}
+        <p className="text-gray-500 dark:text-slate-400 text-xs font-medium mb-4 line-clamp-4 leading-relaxed">
+          {idea.detailedDescription || idea.shortDescription || idea.description}
         </p>
+
+        {/* ─── 🏷️ ৪. ডাইনামিক ক্যাটাগরি ট্যাগ (নতুন ডিজাইন) ─── */}
+        <div className="mb-6">
+          <span className="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200/40 dark:border-slate-700/50">
+            📁 {displayCategory}
+            
+          </span>
+        </div>
       </div>
 
-      {/* ─── ৪. ফুটার: ক্রিয়েটর ইনফো এবং ভিউ বাটন ─── */}
+      {/* ─── ৫. ফুটার: ক্রিয়েটর ইনফো এবং ভিউ বাটন ─── */}
       <div className="pt-4 border-t border-gray-100 dark:border-slate-800 flex items-center justify-between gap-3">
-        {/* যে ইউজার পোস্ট করেছে তার প্রোফাইল */}
+        {/* ক্রিয়েটর প্রোফাইল */}
         <div className="flex items-center gap-3 min-w-0">
           <div className="w-9 h-9 rounded-full overflow-hidden shrink-0 bg-gray-100 dark:bg-slate-800 flex items-center justify-center border border-gray-200/50 dark:border-slate-700">
             {idea.userImage ? (
@@ -65,7 +65,7 @@ const Ideacard = ({ idea }) => {
               Posted By
             </p>
             <h4 className="text-xs font-bold text-slate-700 dark:text-slate-300 truncate max-w-[140px] sm:max-w-[180px]">
-              {idea.userName}
+              {idea.userName || "Anonymous"}
             </h4>
           </div>
         </div>

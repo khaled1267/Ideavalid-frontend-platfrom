@@ -1,11 +1,11 @@
-""
+"";
 import React from "react";
 import { Star } from "lucide-react";
 import Ideacard from "./Ideacard";
 
 const Feturedcard = async () => {
   // ব্যাকএন্ড থেকে ফিচারড ডাটা নিয়ে আসা
-  const res = await fetch("http://localhost:5000/fetured");
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/fetured`);
   const data = await res.json();
 
   return (

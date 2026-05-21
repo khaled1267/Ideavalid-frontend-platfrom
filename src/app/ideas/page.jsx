@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import Ideacard from "@/component/Ideacard";
+import SearchFilter from "@/component/Searchsection";
 
 export default function IdeasPage() {
   const [ideas, setIdeas] = useState([]);
@@ -21,7 +22,7 @@ export default function IdeasPage() {
   useEffect(() => {
     // 💡 আপনার ব্যাকএন্ডের GET API থেকে ডাটা নিয়ে আসা হচ্ছে
     // আপনি যদি রাউটের নাম পরিবর্তন করে থাকেন, তবে সেই অনুযায়ী ইউআরএল দিবেন (যেমন: /all-ideas)
-    fetch("http://localhost:5000/add-ideavalid")
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/add-ideavalid`)
       .then((res) => res.json())
       .then((data) => {
         setIdeas(data);
@@ -45,19 +46,7 @@ export default function IdeasPage() {
     <div className="min-h-screen bg-[#F8F9FA] dark:bg-slate-950 py-12 px-4 sm:px-6 lg:px-8 transition-colors duration-300">
       <div className="max-w-6xl mx-auto">
         {/* হেডার সেকশন */}
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-12 gap-4">
-          <div className="space-y-2">
-            <h1 className="text-4xl font-black text-slate-900 dark:text-white tracking-tight">
-              Explore Startup{" "}
-              <span className="bg-gradient-to-r from-[#00A896] to-[#028090] bg-clip-text text-transparent">
-                Vault
-              </span>
-            </h1>
-            <p className="text-gray-500 dark:text-slate-400 font-medium text-sm">
-              বাস্তবায়নের অপেক্ষায় থাকা চমৎকার সব ইউনিক আইডিয়াগুলো দেখে নিন।
-            </p>
-          </div>
-
+        <div className="md:flex-row md:items-center md:justify-between mb-12 gap-4">
           <Link
             href="/add-idea"
             className="inline-flex items-center gap-2 px-6 h-12 rounded-full text-sm font-bold text-white bg-gradient-to-r from-[#00A896] to-[#028090] shadow-md hover:opacity-95 transition-all text-center justify-center w-fit"
@@ -66,12 +55,14 @@ export default function IdeasPage() {
           </Link>
         </div>
 
+        <SearchFilter />
+
         {/* আইডিয়া কার্ড গ্রিড */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {ideas.map((idea) => (
             <Ideacard key={idea._id} idea={idea} />
           ))}
-        </div>
+        </div> */}
 
         {/* কোনো আইডিয়া না থাকলে */}
         {ideas.length === 0 && (
