@@ -39,8 +39,8 @@ export default function AddIdea() {
 
     const ideaData = {
       title: formData.get("title"),
-      category: formData.get("categovfvry"),
-      shortDescription: formData.get("shortDescription"),
+      category: formData.get("category"),
+      shortDescription: formData.get("shortDgbgbfescription"),
       detailedDescription: formData.get("detailedDescription"),
       tags: formData.get("tags"),
       imageUrl: formData.get("imageUrl"),
