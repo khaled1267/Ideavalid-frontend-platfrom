@@ -14,14 +14,12 @@ import {
 import Link from "next/link";
 
 export default function IdeaDetailsPage({ params }) {
-  // 💡 ১. params আনর‍্যাপ করার সুরক্ষিত ফিক্স
   const unwrappedParams = React.use(params);
   const id = unwrappedParams.id;
 
   const [idea, setIdea] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // 💡 ২. ডাইনামিক ইউজারের জন্য স্টেট (লগইন করা ইউজারের ডাটা এখানে থাকবে)
   const [activeUser, setActiveUser] = useState({
     id: "",
     name: "Anonymous",
@@ -32,9 +30,8 @@ export default function IdeaDetailsPage({ params }) {
   });
 
   useEffect(() => {
-    // উদাহরণস্বরূপ: LocalStorage বা আপনার Auth সেশন থেকে লগইন করা ইউজারের ডাটা নেওয়া
     try {
-      const storedUser = JSON.parse(localStorage.getItem("user")); // 👈 আপনার প্রজেক্টের Auth সেশন অনুযায়ী এটি বদলে নিতে পারেন
+      const storedUser = JSON.parse(localStorage.getItem("user")); 
       if (storedUser) {
         setActiveUser({
           id: storedUser.uid || storedUser._id || storedUser.id || "",
@@ -43,7 +40,6 @@ export default function IdeaDetailsPage({ params }) {
           image: storedUser.photoURL || storedUser.image || "",
         });
       } else {
-        // যদি ইউজার লগইন না থাকে, তবে টেস্ট করার জন্য সাময়িক একটি ডাইনামিক ডামি আইডি ও ইমেইল সেট করছি
         setActiveUser({
           id: "user_67a0d378b7",
           name: "Khaled Mahmud",
@@ -115,13 +111,9 @@ export default function IdeaDetailsPage({ params }) {
           <ArrowLeft size={14} /> Back to Dashboard
         </Link>
 
-        {/* ─── প্রধান লেআউট (২টি কলামে বিভক্ত) ─── */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-          {/* 👈 বাম পাশের সেকশন:アイデア ডিটেইলস */}
           <div className="lg:col-span-2 flex flex-col gap-6">
-            {/* ১. মূল কন্টেন্ট কার্ড */}
             <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] p-6 md:p-8 border border-gray-100 dark:border-slate-800/80 shadow-[0_10px_50px_rgba(0,0,0,0.02)] overflow-hidden">
-              {/* ব্যানার ইমেজ */}
               {idea.image && (
                 <div className="w-full h-[250px] md:h-[380px] rounded-[2rem] overflow-hidden mb-6 shadow-inner">
                   <img
@@ -243,7 +235,6 @@ export default function IdeaDetailsPage({ params }) {
 
           {/* 👉 ডান পাশের সেকশন: কমেন্ট সেকশন (Sticky) */}
           <div className="lg:col-span-1 lg:sticky lg:top-6">
-            {/* 💡 ৩. প্রপস হিসেবে এখন ডাইনামিক activeUser অবজেক্টটি পাস করা হচ্ছে */}
             <CommentSection ideaId={id} currentUser={activeUser} />
           </div>
         </div>

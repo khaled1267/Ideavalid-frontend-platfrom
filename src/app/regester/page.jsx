@@ -6,7 +6,6 @@ import { User, Mail, Lock, Image as ImageIcon, ArrowRight } from "lucide-react";
 import toast from "react-hot-toast";
 import { signUp } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
-import { refresh } from "next/cache";
 
 export default function Regester() {
   const router = useRouter();
@@ -14,30 +13,56 @@ export default function Regester() {
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    // console.log(e.currentTarget);
+    setLoading(true); // ⏳ লোডিং স্টেট চালু
 
     const formData = new FormData(e.currentTarget);
-    // console.log(formData);
-
     const registerData = Object.fromEntries(formData.entries());
-    console.log(registerData);
-    const { data, error } = await signUp.email({
-      //   ...registerData,
-      email: registerData.email,
-      password: registerData.password,
-      name: registerData.name,
-      callbackURL: "/",
-    });
-    console.log(data);
-    if (data) {
-      toast.success("Registration successful");
-    }
-    router.push("/");
-    refresh();
+    
+    const password = registerData.password;
 
-    if (error) {
-      toast.error("Registration failed");
+    // 🔒 ─── পাসওয়ার্ড ভ্যালিডেশন চেক ───
+    if (password.length < 6) {
+      toast.error("Password must be at least 6 characters long!");
+      setLoading(false);
       return;
+    }
+    
+    if (!/[A-Z]/.test(password)) {
+      toast.error("Password must include at least one uppercase letter!");
+      setLoading(false);
+      return;
+    }
+    
+    if (!/[a-z]/.test(password)) {
+      toast.error("Password must include at least one lowercase letter!");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      // 🎯 Better-Auth রেজিস্ট্রেশন মেথড কল
+      const { data, error } = await signUp.email({
+        email: registerData.email,
+        password: password,
+        name: registerData.name,
+        image: registerData.image || null, // প্রোফাইল ছবি থাকলে যোগ হবে
+        callbackURL: "/",
+      });
+
+      if (data) {
+        toast.success("Registration successful!");
+        router.push("/");
+        router.refresh();
+      }
+
+      if (error) {
+        toast.error(error.message || "Registration failed");
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error("An unexpected error occurred");
+    } finally {
+      setLoading(false); // ⏳ লোডিং স্টেট বন্ধ
     }
   };
 
@@ -45,7 +70,6 @@ export default function Regester() {
     <div className="min-h-[85vh] flex flex-col bg-[#F8F9FA] dark:bg-slate-950 py-10 transition-colors duration-300">
       <div className="grow flex items-center justify-center p-4">
         <div className="w-full max-w-md">
-          {/* মূল কার্ড */}
           <div className="bg-white dark:bg-slate-900 p-8 md:p-10 rounded-[2.5rem] border border-gray-100 dark:border-slate-800 shadow-[0_10px_40px_rgba(0,0,0,0.04)] relative overflow-hidden">
             <div className="text-center space-y-2 relative mb-8">
               <h2 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight">
@@ -122,7 +146,7 @@ export default function Regester() {
                 </div>
               </div>
 
-              {/* ৪. পাসওয়ার্ড ফিল্ড */}
+              {/* ৪. পাসওয়ার্ড ফিল্ড */}
               <div className="space-y-1.5">
                 <label
                   htmlFor="password"
@@ -180,8 +204,7 @@ export default function Regester() {
               </button>
             </form>
 
-            {/* ─── Forgot Password Link Component ─── */}
-            <div className="flex items-center justify-end pt-1">
+            <div className="flex items-center justify-end pt-3">
               <Link
                 href="/forgotpassword"
                 className="text-[11px] font-bold text-gray-400 dark:text-slate-500 hover:text-[#00A896] dark:hover:text-teal-400 transition-colors duration-200"
@@ -190,7 +213,6 @@ export default function Regester() {
               </Link>
             </div>
 
-            {/* সাইন ইন লিঙ্ক */}
             <div className="text-center pt-5">
               <p className="text-xs text-gray-400 font-medium">
                 Already have an account?{" "}

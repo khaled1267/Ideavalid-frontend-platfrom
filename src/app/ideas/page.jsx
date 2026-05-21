@@ -20,8 +20,6 @@ export default function IdeasPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // 💡 আপনার ব্যাকএন্ডের GET API থেকে ডাটা নিয়ে আসা হচ্ছে
-    // আপনি যদি রাউটের নাম পরিবর্তন করে থাকেন, তবে সেই অনুযায়ী ইউআরএল দিবেন (যেমন: /all-ideas)
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/add-ideavalid`)
       .then((res) => res.json())
       .then((data) => {

@@ -18,7 +18,9 @@ export function CommentSection({ ideaId }) {
   // ─── ডাটাবেজ থেকে কমেন্ট নিয়ে আসার ফাংশন ───
   const fetchComments = async () => {
     try {
-      const res = await fetch(`http://localhost:5000/comments/${ideaId}`);
+      const res = await fetch(`http://localhost:5000/comments/${ideaId}`,{
+        cache: "no-store"
+      });
       if (res.ok) {
         const data = await res.json();
         setComments(data);
@@ -72,6 +74,7 @@ export function CommentSection({ ideaId }) {
     try {
       const res = await fetch(`http://localhost:5000/comments/${commentId}`, {
         method: "DELETE",
+        
       });
       if (res.ok) {
         fetchComments(); // ডিলিট হওয়ার পর লিস্ট রিফ্রেশ
@@ -87,6 +90,7 @@ export function CommentSection({ ideaId }) {
 
     try {
       const res = await fetch(`http://localhost:5000/comments/${commentId}`, {
+        
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ text: editingText }),

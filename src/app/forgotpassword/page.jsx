@@ -6,13 +6,11 @@ export default function ForgotPasswordPage() {
   return (
     <div className="w-full min-h-screen bg-[#FAFBFB] dark:bg-slate-950 text-slate-800 dark:text-slate-100 flex items-center justify-center p-4 relative overflow-hidden transition-colors duration-300">
       
-      {/* ─── প্রিমিয়াম গ্লো ইফেক্ট ব্যাকগ্রাউন্ড ─── */}
       <div className="absolute top-1/4 left-1/3 w-[450px] h-[450px] bg-[#00A896]/5 dark:bg-[#00A896]/10 blur-[130px] rounded-full pointer-events-none"></div>
       <div className="absolute bottom-1/4 right-1/3 w-[350px] h-[350px] bg-[#028090]/5 dark:bg-[#028090]/5 blur-[120px] rounded-full pointer-events-none"></div>
 
       <div className="w-full max-w-md relative z-10">
         
-        {/* ব্যাক টু লগইন বাটন */}
         <Link 
           href="/login" 
           className="inline-flex items-center gap-2 text-xs font-bold text-gray-400 hover:text-[#00A896] dark:hover:text-teal-400 transition-colors mb-6 group"
@@ -20,12 +18,10 @@ export default function ForgotPasswordPage() {
           <ArrowLeft size={14} className="group-hover:-translate-x-0.5 transition-transform" /> Back to Login
         </Link>
 
-        {/* ─── মেইন গ্লাস কার্ড ─── */}
         <div className="bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800/80 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.02)] p-8 md:p-10 transition-all">
           
           <div className="space-y-6">
             <div className="space-y-2 text-center md:text-left">
-              {/* আইকন বক্স */}
               <div className="w-12 h-12 rounded-2xl bg-teal-50 dark:bg-teal-950/30 text-[#00A896] flex items-center justify-center mb-4 border border-teal-100/30 mx-auto md:mx-0">
                 <KeyRound size={22} />
               </div>
@@ -66,7 +62,6 @@ export default function ForgotPasswordPage() {
 
         </div>
 
-        {/* ফুটার সিকিউরিটি নোট */}
         <p className="text-[10px] text-center text-gray-400/80 dark:text-slate-600 font-medium mt-6">
           Secured by IdeaVault Decentralized Cryptography Registry logs.
         </p>
