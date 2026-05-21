@@ -82,32 +82,23 @@ const Navbar = () => {
         </Link>
 
         {/* ─── মাঝখানে: মেইন ক্যাপসুল মেনু ─── */}
-        <div className="hidden md:flex items-center bg-white dark:bg-slate-800 border border-gray-100/80 dark:border-slate-700/50 px-2 py-1.5 rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.02)]">
-          <Link href="/" className={getNavLinkStyles("/")}>
-            Home
-          </Link>
-          <Link href="/ideas" className={getNavLinkStyles("/ideas")}>
-            Ideas
-          </Link>
-
-          {/* 💡 লগইন থাকলে এই অপশনগুলো অটোমেটিক ক্যাপসুল মেনুতে অ্যাড হবে */}
-          {user && (
-            <>
-              <Link href="/add-idea" className={getNavLinkStyles("/add-idea")}>
-                Add Idea
-              </Link>
-              <Link href="/my-ideas" className={getNavLinkStyles("/my-ideas")}>
-                My Ideas
-              </Link>
-              <Link
-                href="/my-interactions"
-                className={getNavLinkStyles("/my-interactions")}
-              >
-                Interactions
-              </Link>
-            </>
-          )}
-        </div>
+     <div className="hidden md:flex items-center bg-white dark:bg-slate-800 border border-gray-100/80 dark:border-slate-700/50 px-2 py-1.5 rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.02)]">
+  <Link href="/" className={getNavLinkStyles("/")}>
+    Home
+  </Link>
+  <Link href="/ideas" className={getNavLinkStyles("/ideas")}>
+    Ideas
+  </Link>
+  <Link href="/add-idea" className={getNavLinkStyles("/add-idea")}>
+    Add Idea
+  </Link>
+  <Link href="/my-ideas" className={getNavLinkStyles("/my-ideas")}>
+    My Ideas
+  </Link>
+  <Link href="/my-interactions" className={getNavLinkStyles("/my-interactions")}>
+    Interactions
+  </Link>
+</div>
 
         {/* ─── ডানে: থিম বাটন এবং প্রোফাইল স্টেট ─── */}
         <div className="hidden md:flex items-center gap-3">

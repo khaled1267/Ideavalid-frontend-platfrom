@@ -128,14 +128,14 @@ export default function Login() {
                   className="border-2 border-slate-200 hover:border-blue-600/50 focus-within:border-blue-600 transition-all duration-300 h-14 bg-white w-full rounded-2xl"
                 />
               </div>
-              <div className="flex justify-end">
-                <Link
-                  href="#"
-                  className="text-sm font-bold text-blue-600 hover:underline underline-offset-4 transition-all"
-                >
-                  Forgot password?
-                </Link>
-              </div>
+               <div className="flex items-center justify-end pt-1">
+              <Link
+                href="/forgotpassword"
+                className="text-[11px] font-bold text-gray-400 dark:text-slate-500 hover:text-[#00A896] dark:hover:text-teal-400 transition-colors duration-200"
+              >
+                Forgot Password?
+              </Link>
+            </div>
               <Button
                 color="primary"
                 type="submit"

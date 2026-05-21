@@ -32,12 +32,12 @@ const MyIdeasPage = async () => {
   if (!session || !session.user) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center gap-2 text-slate-500">
-        <p className="text-sm font-semibold">
+        <p className="text-2xl font-semibold">
           Please log in to view your workspace.
         </p>
         <Link
           href="/login"
-          className="text-xs text-[#00A896] underline font-bold"
+          className="text-4xl text-[#00A896] underline font-bold"
         >
           Go to Login
         </Link>
