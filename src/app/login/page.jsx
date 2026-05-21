@@ -146,7 +146,7 @@ export default function Login() {
               </Button>
             </form>
 
-            <div className="text-center pt-2">
+            <div className="text-end pt-2">
               <p className="text-sm text-slate-500 font-medium">
                 New to CourseHub?{" "}
                 <Link
