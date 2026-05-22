@@ -6,7 +6,6 @@
 ![Node.js](https://img.shields.io/badge/Node.js-Express-3C873A?style=for-the-badge&logo=node.js)
 ![MongoDB](https://img.shields.io/badge/MongoDB-Database-4EA94B?style=for-the-badge&logo=mongodb)
 ![JWT](https://img.shields.io/badge/Auth-JWT-orange?style=for-the-badge)
-![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
 ---
 
