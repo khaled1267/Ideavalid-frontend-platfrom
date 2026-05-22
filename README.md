@@ -16,7 +16,7 @@
 
 The platform is designed to promote **innovation, collaboration, and idea validation** in a clean, scalable, and modern UI experience.
 
-🔗 **Live Site:** https://your-live-site.vercel.app
+🔗 **Live Site:**https://ideavalid-frontend.vercel.app/
 
 ---
 
@@ -34,7 +34,7 @@ The platform is designed to promote **innovation, collaboration, and idea valida
 - 📱 Mobile-first responsive design
 
 ---
-live url :-https://ideavalid-frontend.vercel.app/
+
 
 ## 🛠️ Tech Stack
 
