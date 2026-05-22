@@ -16,9 +16,7 @@ import toast from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 
-// export const metadata = {
-//   title: 'Add-Idea | Ideavalid', // Output hobe: "About Us | My Cool Website"
-// };
+
 
 export default function AddIdea() {
   const router = useRouter();

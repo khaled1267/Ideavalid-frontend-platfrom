@@ -54,14 +54,7 @@ export default function IdeasPage() {
 
         <SearchFilter />
 
-        {/* আইডিয়া কার্ড গ্রিড */}
-        {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {ideas.map((idea) => (
-            <Ideacard key={idea._id} idea={idea} />
-          ))}
-        </div> */}
-
-        {/* কোনো আইডিয়া না থাকলে */}
+       
         {ideas.length === 0 && (
           <div className="text-center py-20 bg-white dark:bg-slate-900 border border-dashed rounded-[2.5rem] dark:border-slate-800">
             <Lightbulb className="w-12 h-12 mx-auto text-gray-300 dark:text-slate-700 mb-4 animate-pulse" />

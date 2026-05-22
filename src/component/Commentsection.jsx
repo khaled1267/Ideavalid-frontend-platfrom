@@ -8,14 +8,12 @@ export function CommentSection({ ideaId }) {
   const [newComment, setNewComment] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // 💡 এডিটিং স্টেট ট্র্যাক করার জন্য
   const [editingCommentId, setEditingCommentId] = useState(null);
   const [editingText, setEditingText] = useState("");
 
   const session = useSession();
   const sessionUser = session?.data?.user;
 
-  // ─── ডাটাবেজ থেকে কমেন্ট নিয়ে আসার ফাংশন ───
   const fetchComments = async () => {
     try {
       const res = await fetch(`http://localhost:5000/comments/${ideaId}`,{
@@ -34,7 +32,6 @@ export function CommentSection({ ideaId }) {
     if (ideaId) fetchComments();
   }, [ideaId]);
 
-  // ─── নতুন কমেন্ট পোস্ট করার ফাংশন ───
   const handlePostComment = async () => {
     if (!newComment.trim()) return;
     setLoading(true);
@@ -66,7 +63,6 @@ export function CommentSection({ ideaId }) {
     }
   };
 
-  // ─── কমেন্ট ডিলিট করার ফাংশন ───
   const handleDeleteComment = async (commentId) => {
     if (!window.confirm("Are you sure you want to delete this comment?"))
       return;
@@ -77,14 +73,13 @@ export function CommentSection({ ideaId }) {
         
       });
       if (res.ok) {
-        fetchComments(); // ডিলিট হওয়ার পর লিস্ট রিফ্রেশ
+        fetchComments(); 
       }
     } catch (error) {
       console.error("Error deleting comment:", error);
     }
   };
 
-  // ─── কমেন্ট এডিট সেভ করার ফাংশন ───
   const handleSaveEdit = async (commentId) => {
     if (!editingText.trim()) return;
 
@@ -98,7 +93,7 @@ export function CommentSection({ ideaId }) {
       if (res.ok) {
         setEditingCommentId(null);
         setEditingText("");
-        fetchComments(); // আপডেট হওয়ার পর লিস্ট রিফ্রেশ
+        fetchComments(); 
       }
     } catch (error) {
       console.error("Error updating comment:", error);
@@ -116,7 +111,6 @@ export function CommentSection({ ideaId }) {
         Comments ({comments.length})
       </h3>
 
-      {/* কমেন্ট লেখার ইনপুট */}
       <div className="flex flex-col gap-4 mb-6">
         <textarea
           placeholder="Add your comment..."
@@ -134,7 +128,6 @@ export function CommentSection({ ideaId }) {
         </button>
       </div>
 
-      {/* কমেন্ট লিস্ট */}
       <div className="flex flex-col gap-3 max-h-[400px] overflow-y-auto pr-1">
         {comments.length === 0 ? (
           <p className="text-xs text-gray-400 font-medium pt-2">
@@ -142,7 +135,6 @@ export function CommentSection({ ideaId }) {
           </p>
         ) : (
           comments.map((comment) => {
-            // 💡 চেক করা হচ্ছে এই কমেন্টটি বর্তমান লগইন করা ইউজারের কিনা
             const isMyComment =
               sessionUser &&
               (comment.userid === sessionUser.id ||
@@ -170,7 +162,6 @@ export function CommentSection({ ideaId }) {
                     {comment.userName}
                   </span>
 
-                  {/* 💡 এডিট মোড কন্ডিশনাল রেন্ডারিং */}
                   {editingCommentId === comment._id ? (
                     <div className="flex flex-col gap-2 mt-1 w-full">
                       <input
@@ -219,7 +210,6 @@ export function CommentSection({ ideaId }) {
                   </span>
                 </div>
 
-                {/* 💡 শুধুমাত্র নিজের কমেন্ট হলে ডিলিট ও এডিট বাটন দেখাবে */}
                 {isMyComment && editingCommentId !== comment._id && (
                   <div className="absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                     <button

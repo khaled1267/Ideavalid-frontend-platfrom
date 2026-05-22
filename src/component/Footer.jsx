@@ -17,18 +17,15 @@ const Footer = () => {
   };
 
   return (
-    // 💡 bg-gradient ব্যবহার করে একটি ইউনিক Slate-Navy এবং Teal এর কম্বিনেশন দেওয়া হয়েছে এবং প্যাডিং py-12 এ নামিয়ে আনা হয়েছে
     <footer className="w-full bg-gradient-to-b from-[#0F172A] to-[#0A0F1D] dark:from-[#020617] dark:to-[#090d16] border-t border-slate-800 transition-colors duration-300 relative overflow-hidden text-slate-300">
       
       {/* ─── Background Ambient Glow Effects ─── */}
       <div className="absolute -left-20 -bottom-20 w-64 h-64 bg-[#00A896]/10 blur-[80px] rounded-full pointer-events-none"></div>
       <div className="absolute -right-20 -top-20 w-64 h-64 bg-[#028090]/10 blur-[80px] rounded-full pointer-events-none"></div>
 
-      {/* 💡 pt-12 pb-6 এর মাধ্যমে ফুটারের উচ্চতা ছোট (Compact) করা হয়েছে */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-6 relative z-10">
         
         {/* ─── Top Section: Grid Layout ─── */}
-        {/* 💡 mb-10 এর মাধ্যমে সেকশনের ভেতরের স্পেস কমানো হয়েছে */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
           
           {/* Column 1: Branding & Social Profiles */}
@@ -141,7 +138,6 @@ const Footer = () => {
         </div>
 
         {/* ─── Bottom Section: Copyright & Security Badges ─── */}
-        {/* 💡 pt-6 এর মাধ্যমে নিচের স্পেসটিকেও অনেক কম্প্যাক্ট করা হয়েছে */}
         <div className="pt-6 border-t border-slate-800/80 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-[11px] font-medium text-slate-500">
             © {currentYear} <span className="text-slate-400 font-bold">IdeaVault Inc.</span> 

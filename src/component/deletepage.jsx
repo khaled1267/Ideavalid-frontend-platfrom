@@ -21,7 +21,6 @@ export function DeleteModel({ userid }) {
 
       if (res.ok) {
         console.log("Successfully deleted!");
-        // এখানে চাইলে উইন্ডো রিলোড বা স্টেট আপডেট করতে পারেন
         window.location.reload();
       } else {
         console.error("Failed to delete");
@@ -29,11 +28,9 @@ export function DeleteModel({ userid }) {
     } catch (error) {
       console.error("An error occurred:", error);
     }
-  }; // এখানে ব্র্যাকেট মিসিং ছিল, ঠিক করা হয়েছে
-
+  }; 
   return (
     <AlertDialog>
-      {/* ট্রিগার বাটন */}
       <Button variant="danger">Delete</Button>
 
       <AlertDialog.Backdrop>
@@ -51,11 +48,9 @@ export function DeleteModel({ userid }) {
               </p>
             </AlertDialog.Body>
             <AlertDialog.Footer>
-              {/* ক্যানসেল বাটন */}
               <Button slot="close" variant="tertiary">
                 Cancel
               </Button>
-              {/* কনফার্ম বাটন */}
               <Button onClick={handleDelete} slot="close" variant="danger">
                 Confirm Delete
               </Button>

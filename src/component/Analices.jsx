@@ -9,7 +9,6 @@ export default function AiAnalyticsSection() {
     <div className="w-full py-16 bg-[#F8F9FA] dark:bg-slate-950 transition-colors duration-300">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         
-        {/* ─── সেকশন হেডার ─── */}
         <div className="text-center max-w-2xl mx-auto mb-12 space-y-3">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-teal-50 dark:bg-teal-950/30 text-[#00A896] text-xs font-bold rounded-full border border-teal-100/50 dark:border-teal-900/30">
             <BrainCircuit className="w-3.5 h-3.5 animate-pulse" /> IdeaVault AI Engine
@@ -22,10 +21,8 @@ export default function AiAnalyticsSection() {
           </p>
         </div>
 
-        {/* ─── মেইন ড্যাশবোর্ড গ্রিড ─── */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           
-          {/* 📊 ১. বামের কার্ড: লাইভ মার্কেট ট্রেন্ডস গ্রাফ (কাস্টম CSS UI) */}
           <div className="lg:col-span-2 bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800/80 rounded-[2.5rem] p-6 md:p-8 shadow-[0_15px_50px_rgba(0,0,0,0.01)] flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between mb-6">
@@ -43,16 +40,13 @@ export default function AiAnalyticsSection() {
                 </span>
               </div>
 
-              {/* কাস্টম লাইন চার্ট (Pure Tailwind-CSS) */}
               <div className="h-44 w-full flex items-end justify-between gap-2 pt-6 relative border-b border-l border-gray-100 dark:border-slate-800">
-                {/* ব্যাকগ্রাউন্ড গ্রিড লাইন */}
                 <div className="absolute inset-0 flex flex-col justify-between pointer-events-none border-dashed">
                   <div className="w-full border-b border-dashed border-gray-100 dark:border-slate-800/40"></div>
                   <div className="w-full border-b border-dashed border-gray-100 dark:border-slate-800/40"></div>
                   <div className="w-full border-b border-dashed border-gray-100 dark:border-slate-800/40"></div>
                 </div>
 
-                {/* চার্ট বারগুলো (উচ্চতা ডাইনামিক ফিল দেয়) */}
                 <div className="w-full flex items-end justify-between px-4 h-full relative z-10">
                   <div className="w-8 bg-gradient-to-t from-[#00A896]/20 to-[#00A896] rounded-t-lg transition-all duration-500 hover:opacity-80 group relative" style={{ height: "40%" }}>
                     <span className="absolute -top-7 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-[10px] px-1.5 py-0.5 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Jan: 40%</span>
@@ -76,7 +70,6 @@ export default function AiAnalyticsSection() {
               </div>
             </div>
 
-            {/* নিচের ৩টি ছোট ফিচারস */}
             <div className="grid grid-cols-3 gap-2 mt-6 pt-4 border-t border-gray-50 dark:border-slate-800 text-center">
               <div>
                 <div className="text-lg md:text-xl font-black text-slate-800 dark:text-white">1.2M+</div>
@@ -92,8 +85,6 @@ export default function AiAnalyticsSection() {
               </div>
             </div>
           </div>
-
-          {/* 🎯 ২. ডানের কার্ড: র্যাডিয়াল প্রগ্রেস এবং স্কোর মেটার (Viability Score) */}
           <div className="bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800/80 rounded-[2.5rem] p-6 md:p-8 shadow-[0_15px_50px_rgba(0,0,0,0.01)] flex flex-col justify-between items-center text-center">
             <div className="w-full">
               <div className="flex items-center gap-2 mb-6 justify-center sm:justify-start">
@@ -103,15 +94,11 @@ export default function AiAnalyticsSection() {
                 <h3 className="text-base font-bold text-slate-900 dark:text-white">Market Fit Index</h3>
               </div>
 
-              {/* 🔄 এআই প্রগ্রেস রিং (SVG দিয়ে তৈরি গ্লোয়িং মিটার) */}
               <div className="relative w-36 h-36 mx-auto my-4 flex items-center justify-center">
                 <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
-                  {/* ব্যাকগ্রাউন্ড সার্কেল */}
                   <circle cx="50" cy="50" r="40" stroke="currentColor" strokeWidth="8" fill="transparent" className="text-gray-100 dark:text-slate-800" />
-                  {/* মেইন প্রগ্রেস সার্কেল (84% অ্যানিমেশন ফিল) */}
                   <circle cx="50" cy="50" r="40" stroke="#00A896" strokeWidth="8" fill="transparent" strokeDasharray="251.2" strokeDashoffset="38.5" strokeLinecap="round" className="drop-shadow-[0_4px_10px_rgba(0,168,150,0.4)]" />
                 </svg>
-                {/* মাঝখানের স্কোর টেক্সট */}
                 <div className="absolute space-y-0.5">
                   <div className="text-3xl font-black text-slate-900 dark:text-white tracking-tight">84.6%</div>
                   <div className="text-[10px] font-bold text-[#00A896] uppercase tracking-wider">High Viability</div>
@@ -119,7 +106,6 @@ export default function AiAnalyticsSection() {
               </div>
             </div>
 
-            {/* শর্ট অ্যানালাইসিস নোটিফিকেশন */}
             <div className="w-full bg-gray-50/60 dark:bg-slate-850 p-4 rounded-2xl border border-gray-100 dark:border-slate-800 flex items-start gap-3 text-left">
               <ShieldCheck className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
               <div className="space-y-0.5">

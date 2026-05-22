@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { Modal, Button, TextField, Label, Input } from "@heroui/react";
 
 export function EditModal({ ideaData }) {
-  // ফর্ম ফিল্ডগুলোর জন্য ডাটাবেজের ভ্যালু দিয়ে স্টেট সেট করা
   const [title, setTitle] = useState(ideaData?.title || "");
   const [shortDescription, setShortDescription] = useState(
     ideaData?.shortDescription || "",
@@ -14,7 +13,6 @@ export function EditModal({ ideaData }) {
   );
   const [loading, setLoading] = useState(false);
 
-  // ডাটা আপডেট করার ফাংশন
   const handleUpdate = async () => {
     setLoading(true);
     try {
@@ -35,7 +33,7 @@ export function EditModal({ ideaData }) {
 
       if (res.ok) {
         console.log("Successfully updated!");
-        window.location.reload(); // ডিলিশন বা আপডেটের পর পেজ রিফ্রেশ করার জন্য
+        window.location.reload(); 
       } else {
         console.error("Failed to update idea");
       }
@@ -48,7 +46,6 @@ export function EditModal({ ideaData }) {
 
   return (
     <Modal>
-      {/* ১. এডিট ট্রিগার বাটন (কার্ডে দেখাবে) */}
       <Button
         variant="secondary"
         className="text-xs rounded-xl font-bold px-4 py-1.5 border border-gray-200 dark:border-slate-700"
@@ -56,13 +53,11 @@ export function EditModal({ ideaData }) {
         Edit
       </Button>
 
-      {/* ২. মোডাল ব্যাকড্রপ ও কন্টেইনার স্টাইল */}
       <Modal.Backdrop>
         <Modal.Container placement="auto">
           <Modal.Dialog className="sm:max-w-md bg-white dark:bg-slate-900 rounded-[2rem] overflow-hidden">
             <Modal.CloseTrigger />
 
-            {/* ৩. মোডাল হেডার */}
             <Modal.Header>
               <Modal.Heading className="text-xl font-black text-slate-900 dark:text-white">
                 Edit Idea
@@ -72,13 +67,11 @@ export function EditModal({ ideaData }) {
               </p>
             </Modal.Header>
 
-            {/* ৪. মোডাল বডি (ইনপুট ফর্ম) */}
             <Modal.Body className="p-6">
               <form
                 className="flex flex-col gap-4"
                 onSubmit={(e) => e.preventDefault()}
               >
-                {/* টাইটেল ইনপুট */}
                 <TextField className="w-full" name="title" type="text">
                   <Label className="text-xs font-bold text-slate-500 mb-1 block">
                     Title
@@ -90,7 +83,6 @@ export function EditModal({ ideaData }) {
                   />
                 </TextField>
 
-                {/* শর্ট ডেসক্রিপশন ইনপুট */}
                 <TextField
                   className="w-full"
                   name="shortDescription"
@@ -106,7 +98,6 @@ export function EditModal({ ideaData }) {
                   />
                 </TextField>
 
-                {/* ডিটেইলড ডেসক্রিপশন ইনপুট */}
                 <TextField className="w-full" name="detailedDescription">
                   <Label className="text-xs font-bold text-slate-500 mb-1 block">
                     Detailed Description
@@ -120,7 +111,6 @@ export function EditModal({ ideaData }) {
               </form>
             </Modal.Body>
 
-            {/* ৫. মোডাল ফুটার বাটনসমূহ */}
             <Modal.Footer>
               <Button slot="close" variant="secondary" disabled={loading}>
                 Cancel

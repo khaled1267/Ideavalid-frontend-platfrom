@@ -29,7 +29,6 @@ import { Pagination, Navigation, Autoplay } from "swiper/modules";
 const Hero = () => {
   return (
     <section className="relative overflow-hidden   bg-base-300 ">
-      {/* ব্যাকগ্রাউন্ডের গ্লোবাল ডেকোরেশন (পুরো সেকশনের প্রিমিয়াম ভাইব আনার জন্য) */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-tr from-[#00A896]/10 to-transparent blur-3xl rounded-full -z-10"></div>
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-gradient-to-br from-[#028090]/10 to-transparent blur-3xl rounded-full -z-10"></div>
 
@@ -37,13 +36,12 @@ const Hero = () => {
         navigation={true}
         pagination={{ clickable: true }}
         autoplay={{
-          delay: 4500, // ৫টি স্লাইড পড়ার জন্য সাড়ে ৪ সেকেন্ড সময় পারফেক্ট
+          delay: 4500,
           disableOnInteraction: false,
         }}
         modules={[Pagination, Navigation, Autoplay]}
         className="mySwiper shadow-[0_10px_30px_rgba(0,0,0,0.02)] rounded-[2.5rem]"
       >
-        {/* ─── স্লাইড ১: মেইন আইডিয়া শেয়ারিং ও ভ্যালিডেশন ─── */}
         <SwiperSlide className="px-4 md:px-12">
           <div className="max-w-7xl mx-auto py-6 relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -131,7 +129,6 @@ const Hero = () => {
           </div>
         </SwiperSlide>
 
-        {/* ─── স্লাইড ২: ক্যাটাগরি ও ট্রেন্ডিং আইডিয়া এক্সপ্লোরেশন ─── */}
         <SwiperSlide className="px-4 md:px-12">
           <div className="max-w-7xl mx-auto py-6 relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -244,7 +241,6 @@ const Hero = () => {
           </div>
         </SwiperSlide>
 
-        {/* ─── স্লাইড ৩: মেন্টরশিপ ও এনক্রিপশন প্রাইভেসী ─── */}
         <SwiperSlide className="px-4 md:px-12">
           <div className="max-w-7xl mx-auto py-6 relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -319,7 +315,6 @@ const Hero = () => {
           </div>
         </SwiperSlide>
 
-        {/* ─── ✨ নতুন স্লাইড ৪: কো-ফাউন্ডার এবং প্রাক-বীজ তহবিল ─── */}
         <SwiperSlide className="px-4 md:px-12">
           <div className="max-w-7xl mx-auto py-6 relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -426,7 +421,6 @@ const Hero = () => {
           </div>
         </SwiperSlide>
 
-        {/* ─── ✨ নতুন স্লাইড ৫: গ্লোবাল হ্যাকাথন এবং ইভেন্ট ─── */}
         <SwiperSlide className="px-4 md:px-12">
           <div className="max-w-7xl mx-auto py-6 relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">

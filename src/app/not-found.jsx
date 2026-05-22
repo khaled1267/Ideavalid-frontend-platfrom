@@ -1,4 +1,3 @@
-// app/not-found.jsx
 
 "use client";
 
@@ -10,11 +9,9 @@ export default function NotFound() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-black to-slate-900 flex items-center justify-center px-6 overflow-hidden relative">
       
-      {/* Animated Background Glow */}
       <div className="absolute top-0 left-0 w-72 h-72 bg-blue-500/20 rounded-full blur-3xl animate-pulse"></div>
       <div className="absolute bottom-0 right-0 w-72 h-72 bg-purple-500/20 rounded-full blur-3xl animate-pulse"></div>
 
-      {/* Floating circles */}
       <motion.div
         animate={{ y: [0, -20, 0] }}
         transition={{ repeat: Infinity, duration: 4 }}
@@ -29,7 +26,6 @@ export default function NotFound() {
 
       <div className="max-w-2xl text-center relative z-10">
         
-        {/* 404 Number */}
         <motion.h1
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -81,7 +77,6 @@ export default function NotFound() {
           </button>
         </motion.div>
 
-        {/* Search Icon Animation */}
         <motion.div
           animate={{ rotate: [0, 10, -10, 0] }}
           transition={{ repeat: Infinity, duration: 3 }}

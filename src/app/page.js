@@ -10,7 +10,6 @@ export default function Home() {
     <div>
      
       
-      {/* তোমার নতুন স্লাইডার হিরো সেকশন */}
       <Hero />
       <Feturedcard />
       <Stataup />

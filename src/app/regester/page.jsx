@@ -13,14 +13,13 @@ export default function Regester() {
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    setLoading(true); // ⏳ লোডিং স্টেট চালু
+    setLoading(true); 
 
     const formData = new FormData(e.currentTarget);
     const registerData = Object.fromEntries(formData.entries());
     
     const password = registerData.password;
 
-    // 🔒 ─── পাসওয়ার্ড ভ্যালিডেশন চেক ───
     if (password.length < 6) {
       toast.error("Password must be at least 6 characters long!");
       setLoading(false);
@@ -40,12 +39,11 @@ export default function Regester() {
     }
 
     try {
-      // 🎯 Better-Auth রেজিস্ট্রেশন মেথড কল
       const { data, error } = await signUp.email({
         email: registerData.email,
         password: password,
         name: registerData.name,
-        image: registerData.image || null, // প্রোফাইল ছবি থাকলে যোগ হবে
+        image: registerData.image || null, 
         callbackURL: "/",
       });
 
@@ -62,7 +60,7 @@ export default function Regester() {
       console.error(err);
       toast.error("An unexpected error occurred");
     } finally {
-      setLoading(false); // ⏳ লোডিং স্টেট বন্ধ
+      setLoading(false);
     }
   };
 
@@ -84,7 +82,6 @@ export default function Regester() {
             </div>
 
             <form className="space-y-5" onSubmit={handleRegister}>
-              {/* ১. ফুল নেম ফিল্ড */}
               <div className="space-y-1.5">
                 <label
                   htmlFor="name"
@@ -105,7 +102,6 @@ export default function Regester() {
                 </div>
               </div>
 
-              {/* ২. ইমেইল ফিল্ড */}
               <div className="space-y-1.5">
                 <label
                   htmlFor="email"
@@ -126,7 +122,6 @@ export default function Regester() {
                 </div>
               </div>
 
-              {/* ৩. প্রোফাইল ইমেজ ফিল্ড */}
               <div className="space-y-1.5">
                 <label
                   htmlFor="image"
@@ -146,7 +141,6 @@ export default function Regester() {
                 </div>
               </div>
 
-              {/* ৪. পাসওয়ার্ড ফিল্ড */}
               <div className="space-y-1.5">
                 <label
                   htmlFor="password"
@@ -167,7 +161,6 @@ export default function Regester() {
                 </div>
               </div>
 
-              {/* সাবমিট বাটন */}
               <button
                 type="submit"
                 disabled={loading}

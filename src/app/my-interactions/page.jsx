@@ -8,7 +8,6 @@ export default function MyInteractionsPage() {
   const [myComments, setMyComments] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Better-Auth থেকে লগইন করা ইউজারের সেশন নেওয়া হচ্ছে
   const session = useSession();
   const currentUser = session?.data?.user;
 
@@ -32,7 +31,6 @@ export default function MyInteractionsPage() {
       }
     };
 
-    // ইউজার সেশন লোড হওয়ার সাথে সাথে কমেন্ট ফেচ হবে
     if (session?.status !== "loading") {
       fetchMyComments();
     }
@@ -78,12 +76,10 @@ export default function MyInteractionsPage() {
                 className="bg-slate-900/60 border border-slate-800/80 p-5 rounded-2xl flex flex-col gap-2 transition-all hover:border-slate-700"
               >
                 <div className="flex justify-between items-start gap-4">
-                  {/* কমেন্ট টেক্সট */}
                   <p className="text-sm text-slate-200 font-medium break-words max-w-2xl">
                     {comment.text}
                   </p>
 
-                  {/* কমেন্ট করার তারিখ */}
                   <span className="text-[10px] text-gray-500 font-semibold shrink-0">
                     {comment.createdAt
                       ? new Date(comment.createdAt).toLocaleDateString(
@@ -98,7 +94,7 @@ export default function MyInteractionsPage() {
                   </span>
                 </div>
 
-                {/* যে আইডিয়ার ওপর কমেন্ট করা হয়েছে তার লিঙ্ক */}
+                
                 {comment.ideaId && (
                   <div className="mt-2 pt-2 border-t border-slate-800/60 flex items-center">
                     <Link

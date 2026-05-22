@@ -155,7 +155,7 @@ import { useSearchParams, useRouter } from "next/navigation";
               <p className="text-sm text-slate-500 font-medium">
                 New to CourseHub?{" "}
                 <Link
-                  href="/register"
+                  href="/regester"
                   className="text-blue-600 font-black hover:underline"
                 >
                   Create an account

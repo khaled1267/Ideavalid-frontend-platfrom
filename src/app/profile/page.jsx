@@ -8,11 +8,9 @@ export default function ProfileUpdatePage() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
-  // Better-Auth সেশন থেকে লাইভ ডাটা নেওয়া হচ্ছে
   const session = useSession();
   const sessionUser = session?.data?.user;
 
-  // ১. সেশন ডাটা পাওয়ার সাথে সাথে ফর্মের ইনপুট ফিল্ডে বর্তমান নাম ও ইমেইল বসানো
   useEffect(() => {
     if (sessionUser) {
       setUser({
@@ -23,24 +21,20 @@ export default function ProfileUpdatePage() {
     }
   }, [sessionUser]);
 
-  // ২. ইনপুট চেঞ্জ হ্যান্ডেলার
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUser((prev) => ({ ...prev, [name]: value }));
   };
 
-  // ৩. ব্যাকএন্ডে আপডেট রিকোয়েস্ট পাঠানো (ইমেইল প্যারামিটার ব্যবহার করে)
   const handleUpdate = async (e) => {
     e.preventDefault();
 
-    // 💡 সেশন থেকে ইউজারের আইডি নেওয়া হচ্ছে
     const currentUserId = sessionUser?.id || sessionUser?._id;
     if (!currentUserId) return;
 
     setLoading(true);
     setMessage("");
     try {
-      // 💡 ব্যাকএন্ডের আইডি রাউটে হিট করা হচ্ছে
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${currentUserId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -69,7 +63,6 @@ export default function ProfileUpdatePage() {
     }
   };
 
-  // সেশন লোড হওয়ার সময়ের স্টেট
   if (session?.status === "loading") {
     return (
       <div className="min-h-screen bg-slate-950 flex items-center justify-center text-white">
@@ -78,7 +71,6 @@ export default function ProfileUpdatePage() {
     );
   }
 
-  // ইউজার লগইন না থাকলে মেসেজ
   if (!sessionUser) {
     return (
       <div className="min-h-screen bg-slate-950 flex items-center justify-center text-white p-4">
@@ -104,7 +96,6 @@ export default function ProfileUpdatePage() {
         )}
 
         <form onSubmit={handleUpdate} className="flex flex-col gap-4">
-          {/* নাম ইনপুট */}
           <div className="flex flex-col gap-1.5">
             <label className="text-xs font-bold text-slate-400">
               Full Name
@@ -119,7 +110,6 @@ export default function ProfileUpdatePage() {
             />
           </div>
 
-          {/* ইমেইল ইনপুট (disabled রাখা হয়েছে সুরক্ষার জন্য) */}
           <div className="flex flex-col gap-1.5 opacity-60">
             <label className="text-xs font-bold text-slate-400">
               Email Address (Cannot be changed)
@@ -133,7 +123,6 @@ export default function ProfileUpdatePage() {
             />
           </div>
 
-          {/* প্রোফাইল ইমেজ ইউআরএল */}
           <div className="flex flex-col gap-1.5">
             <label className="text-xs font-bold text-slate-400">
               Profile Image URL
@@ -148,7 +137,6 @@ export default function ProfileUpdatePage() {
             />
           </div>
 
-          {/* সাবমিট বাটন */}
           <button
             type="submit"
             disabled={loading}
