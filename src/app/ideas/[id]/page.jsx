@@ -1,6 +1,4 @@
-"use client";
-
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { CommentSection } from "@/component/Commentsection";
 import {
   ArrowLeft,
@@ -12,80 +10,77 @@ import {
   User,
 } from "lucide-react";
 import Link from "next/link";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
-export default function IdeaDetailsPage({ params }) {
-  const unwrappedParams = React.use(params);
-  const id = unwrappedParams.id;
+// 🌐 সার্ভার সাইডেই ডেটা ফেচ করার ফাংশন
+async function getIdeaDetails(id, token) {
+  if (!id) return null;
 
-  const [idea, setIdea] = useState(null);
-  const [loading, setLoading] = useState(true);
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/my-ideavalid/${id}`, {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+      // সার্ভার সাইড ফেচিং এ ক্যাশিং কন্ট্রোল (প্রয়োজন অনুযায়ী পরিবর্তন করতে পারেন)
+      cache: "no-store", 
+    });
 
-  const [activeUser, setActiveUser] = useState({
-    id: "",
-    name: "Anonymous",
-    email: "",
-    image: "",
-    userid: "",
-    email: "",
-  });
-
-  useEffect(() => {
-    try {
-      const storedUser = JSON.parse(localStorage.getItem("user")); 
-      if (storedUser) {
-        setActiveUser({
-          id: storedUser.uid || storedUser._id || storedUser.id || "",
-          name: storedUser.displayName || storedUser.name || "Anonymous",
-          email: storedUser.email || "",
-          image: storedUser.photoURL || storedUser.image || "",
-        });
-      } else {
-        setActiveUser({
-          id: "user_67a0d378b7",
-          name: "Khaled Mahmud",
-          email: "khaled@example.com",
-          image: "",
-        });
-      }
-    } catch (error) {
-      console.error("Error reading user session:", error);
+    if (res.ok) {
+      return await res.json();
     }
-  }, []);
+    console.error("Failed to fetch data from server. Status:", res.status);
+    return null;
+  } catch (error) {
+    console.error("Error fetching idea details:", error);
+    return null;
+  }
+}
 
-  useEffect(() => {
-    const fetchIdeaDetails = async () => {
-      if (!id) return;
+// মেইন সার্ভার কম্পোনেন্ট (async ব্যবহার করা হয়েছে)
+export default async function IdeaDetailsPage({ params }) {
+  // সার্ভার কম্পোনেন্টে সরাসরি params আনর‍্যাপ বা রিড করা যায়
+  const { id } = await params;
 
-      try {
-        setLoading(true);
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/my-ideavalid/${id}`);
-        if (res.ok) {
-          const data = await res.json();
-          setIdea(data);
-        } else {
-          console.error("Failed to fetch data from server");
-        }
-      } catch (error) {
-        console.error("Error fetching idea details:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  // 🔐 সার্ভার সাইডেই সেশন বা টোকেন বের করা হচ্ছে
+  let token = "";
+  let activeUser = { id: "", name: "Anonymous", email: "", image: "" };
 
-    fetchIdeaDetails();
-  }, [id]);
+  try {
+    const sessionHeaders = await headers();
+    const session = await auth.api.getToken({
+      headers: sessionHeaders,
+    });
+    
+    if (session?.token) {
+      token = session.token;
+    }
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-slate-950">
-        <div className="relative w-12 h-12">
-          <div className="absolute w-full h-full rounded-full border-[3px] border-gray-200 dark:border-slate-800"></div>
-          <div className="absolute w-full h-full rounded-full border-[3px] border-t-indigo-600 animate-spin"></div>
-        </div>
-      </div>
-    );
+    // আপনার অথেন্টিকেশন লাইব্রেরি অনুযায়ী ইউজার ডাটা বের করা (যদি সেশনে থাকে)
+    if (session?.user) {
+      activeUser = {
+        id: session.user.id || session.user._id || "",
+        name: session.user.name || "Anonymous",
+        email: session.user.email || "",
+        image: session.user.image || "",
+      };
+    } else {
+      // ব্যাকআপ ডামি ইউজার
+      activeUser = {
+        id: "user_67a0d378b7",
+        name: "Khaled Mahmud",
+        email: "khaled@example.com",
+        image: "",
+      };
+    }
+  } catch (err) {
+    console.error("Error fetching auth session on server:", err);
   }
 
+  // ডেটা ফেচ করা হচ্ছে
+  const idea = await getIdeaDetails(id, token);
+
+  // আইডিয়া না পাওয়া গেলে স্ক্রিন
   if (!idea) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 dark:bg-slate-950 gap-4">
@@ -103,6 +98,7 @@ export default function IdeaDetailsPage({ params }) {
   return (
     <div className="min-h-screen bg-gray-50/50 dark:bg-slate-950 py-10 px-4 md:px-8">
       <div className="max-w-7xl mx-auto">
+        
         {/* ⬅️ ব্যাক বাটন */}
         <Link
           href="/my-ideas"
@@ -112,19 +108,23 @@ export default function IdeaDetailsPage({ params }) {
         </Link>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+          
+          {/* বাম পাশের মেইন কনটেন্ট সেকশন */}
           <div className="lg:col-span-2 flex flex-col gap-6">
             <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] p-6 md:p-8 border border-gray-100 dark:border-slate-800/80 shadow-[0_10px_50px_rgba(0,0,0,0.02)] overflow-hidden">
+              
+              {/* আইডিয়ার ইমেজ */}
               {idea.image && (
                 <div className="w-full h-[250px] md:h-[380px] rounded-[2rem] overflow-hidden mb-6 shadow-inner">
                   <img
                     src={idea.image}
-                    alt={idea.title}
+                    alt={idea.title || "Idea Image"}
                     className="w-full h-full object-cover"
                   />
                 </div>
               )}
 
-              {/* মেটা ইনফো */}
+              {/* মেটা ইনফো (ক্যাটাগরি ও তারিখ) */}
               <div className="flex flex-wrap gap-4 items-center mb-4 text-xs font-bold text-gray-400 dark:text-slate-500">
                 <span className="flex items-center gap-1.5 bg-gray-50 dark:bg-slate-950 px-3 py-1.5 rounded-xl border border-gray-100/60 dark:border-slate-900">
                   <Tag size={12} className="text-indigo-500" />{" "}
@@ -159,7 +159,7 @@ export default function IdeaDetailsPage({ params }) {
                     {idea.userImage ? (
                       <img
                         src={idea.userImage}
-                        alt={idea.userName}
+                        alt={idea.userName || "User Avatar"}
                         className="w-full h-full object-cover"
                       />
                     ) : (
@@ -171,7 +171,7 @@ export default function IdeaDetailsPage({ params }) {
                       Posted By
                     </p>
                     <h4 className="text-xs font-bold text-slate-700 dark:text-slate-300 truncate max-w-[140px] sm:max-w-[180px]">
-                      {idea.userName}
+                      {idea.userName || "Unknown"}
                     </h4>
                   </div>
                 </div>
@@ -216,8 +216,7 @@ export default function IdeaDetailsPage({ params }) {
                   <Target size={16} /> Target Problem
                 </h3>
                 <p className="text-xs text-slate-700 dark:text-slate-300 font-medium leading-relaxed">
-                  {idea.problemStatement ||
-                    "No specific problem details provided."}
+                  {idea.problemStatement || "No specific problem details provided."}
                 </p>
               </div>
 
@@ -226,18 +225,19 @@ export default function IdeaDetailsPage({ params }) {
                   <Lightbulb size={16} /> Proposed Solution
                 </h3>
                 <p className="text-xs text-slate-700 dark:text-slate-300 font-medium leading-relaxed">
-                  {idea.proposedSolution ||
-                    "No proposed solution details provided."}
+                  {idea.proposedSolution || "No proposed solution details provided."}
                 </p>
               </div>
             </div>
           </div>
 
           {/* 👉 ডান পাশের সেকশন: কমেন্ট সেকশন (Sticky) */}
+          {/* সার্ভার থেকে পাওয়া activeUser প্রপস হিসেবে পাঠানো হলো */}
           <div className="lg:col-span-1 lg:sticky lg:top-6">
             <CommentSection ideaId={id} currentUser={activeUser} />
           </div>
         </div>
+
       </div>
     </div>
   );
