@@ -14,6 +14,7 @@ import {
 import Link from "next/link";
 import Ideacard from "@/component/Ideacard";
 import SearchFilter from "@/component/Searchsection";
+import LoadingSpinner from "@/component/Lodding";
 
 export default function IdeasPage() {
   const [ideas, setIdeas] = useState([]);
@@ -34,9 +35,7 @@ export default function IdeasPage() {
 
   if (loading) {
     return (
-      <div className="min-h-[80vh] flex items-center justify-center bg-[#F8F9FA] dark:bg-slate-950">
-        <div className="animate-spin h-8 w-8 text-[#00A896] border-4 border-t-transparent rounded-full"></div>
-      </div>
+      <LoadingSpinner />
     );
   }
 

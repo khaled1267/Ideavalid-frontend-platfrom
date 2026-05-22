@@ -1,13 +1,38 @@
-"";
-import React from "react";
+"use client";
+import React, { Suspense, useEffect, useState } from "react";
 import { Star } from "lucide-react";
 import Ideacard from "./Ideacard";
+import LoadingSpinner from "./Lodding";
 
-const Feturedcard = async () => {
-  // ব্যাকএন্ড থেকে ফিচারড ডাটা নিয়ে আসা
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/fetured`);
-  const data = await res.json();
+const Feturedcard =  () => {
+   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
+  // API Fetch
+  useEffect(() => {
+    const fetchIdeas = async () => {
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/fetured`
+        );
+
+        const result = await res.json();
+
+        setData(result);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchIdeas();
+  }, []);
+
+  // Loading State
+  if (loading) {
+    return <LoadingSpinner />;
+  }
   return (
     <div className="w-full py-8 max-w-6xl mx-auto">
       {/* সেকশন হেডার */}
@@ -29,6 +54,7 @@ const Feturedcard = async () => {
       {data.length === 0 && (
         <p className="text-center text-gray-400 py-6 text-sm">
           কোনো ফিচারড আইডিয়া এই মুহূর্তে উপলব্ধ নেই।
+           <Suspense fallback={<LoadingSpinner />}></Suspense>
         </p>
       )}
     </div>

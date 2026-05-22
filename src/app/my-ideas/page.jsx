@@ -7,10 +7,15 @@ import { headers } from "next/headers";
 import { DeleteModel } from "@/component/deletepage";
 import { EditModal } from "@/component/Editmodel";
 
-// ১. সার্ভার সাইডেই ব্যাকএন্ড থেকে ডেটা ফেচ করার ফাংশন
-async function fetchMyIdeas(userid) {
+// 🎯 ১. সার্ভার সাইড থেকে সরাসরি ব্যাকএন্ড পোর্টে কল করার ফাংশন (প্রক্সি এখানে কাজ করবে না)
+const fetchMyIdeas = async (userid) => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/my-ideavalid/${userid}`, {
+    // নোট: ডেভেলপমেন্টে মেইন পোর্ট 'http://localhost:5000' অথবা প্রোডাকশন লিঙ্ক ব্যবহার করতে হবে
+    const baseUrl = process.env.NODE_ENV === "production" 
+      ? process.env.NEXT_PUBLIC_API_URL // লাইভ সার্ভার লিঙ্ক
+      : "http://localhost:5000";       // আপনার লোকাল এক্সপ্রেস ব্যাকএন্ড পোর্ট
+
+    const res = await fetch(`${baseUrl}/my-ideavalid/${userid}`, {
       cache: "no-store",
     });
 
@@ -20,7 +25,7 @@ async function fetchMyIdeas(userid) {
     console.error("Error fetching data from API:", error);
     return [];
   }
-}
+};
 
 const MyIdeasPage = async () => {
   // ২. Better-Auth থেকে লগইন থাকা ইউজারের সেশন নেওয়া
@@ -32,12 +37,12 @@ const MyIdeasPage = async () => {
   if (!session || !session.user) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center gap-2 text-slate-500">
-        <p className="text-2xl font-semibold">
+        <p className="text-xl font-semibold">
           Please log in to view your workspace.
         </p>
         <Link
           href="/login"
-          className="text-4xl text-[#00A896] underline font-bold"
+          className="text-2xl text-[#00A896] underline font-bold mt-2"
         >
           Go to Login
         </Link>
@@ -45,7 +50,7 @@ const MyIdeasPage = async () => {
     );
   }
 
-  // ৩. সেশন থেকে আইডি নিয়ে ডাটাবেজ/ব্যাকএন্ড থেকে ডেটা আনা
+  // ৩. সেশন থেকে আইডি নিয়ে ডাটাবেজ থেকে ডেটা আনা (ফাংশন নেম ঠিক করা হয়েছে)
   const userid = session.user.id;
   const ideas = await fetchMyIdeas(userid);
 
@@ -69,29 +74,29 @@ const MyIdeasPage = async () => {
         </Link>
       </div>
 
-      {/* 💡 আইডিয়া লিস্ট গ্রিড */}
+      {/* 💡 আইডিয়া লিস্ট গ্রিড */}
       {ideas.length === 0 ? (
         <div className="text-center py-20 border-2 border-dashed border-gray-100 dark:border-slate-800 rounded-[2.5rem]">
           <p className="text-sm text-gray-400 font-semibold">
-            You havent added any startup concepts yet.
+            You havenot added any startup concepts yet.
           </p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {ideas.map((singleIdea) => (
-            <div key={singleIdea._id} className="flex flex-col gap-3">
-              {/* আইডিয়া কার্ড */}
-              <div className="flex justify-between -mb-3">
-                <div>
-                  <EditModal ideaData={singleIdea} />
-                </div>
-                <div className="flex justify-end px-2 -py-6">
-                  <DeleteModel userid={singleIdea} />
-                </div>
+            <div key={singleIdea._id} className="flex flex-col relative group">
+              
+              {/* 🛠️ এডিট এবং ডিলিট মডাল লেআউট সুন্দরভাবে কার্ডের ওপর সেট করা হলো */}
+              <div className="flex justify-between items-center px-2 py-1 bg-gray-50 dark:bg-slate-900 border border-b-0 border-gray-100 dark:border-slate-800 rounded-t-2xl">
+                <EditModal ideaData={singleIdea} />
+                <DeleteModel userid={singleIdea} />
               </div>
-              <Ideacard idea={singleIdea} />
+              
+              {/* মেইন আইডিয়া কার্ড (টপ রেডিয়াস ম্যানেজ করার জন্য নিচের কার্ডে একটু ওভাররাইট হতে পারে) */}
+              <div className="w-full">
+                <Ideacard idea={singleIdea} />
+              </div>
 
-              {/* কার্ডের নিচে ডিলিট বাটন যুক্ত করা হলো */}
             </div>
           ))}
         </div>
