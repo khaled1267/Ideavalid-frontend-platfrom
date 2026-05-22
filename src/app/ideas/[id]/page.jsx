@@ -12,6 +12,10 @@ import {
 import Link from "next/link";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
+export const metadata = {
+  title: 'Idea Details | Ideavalid',
+  description: 'Ideavalid is a platform that allows you to share your startup ideas with the world and get valuable feedback.',
+};
 
 // 🌐 সার্ভার সাইডেই ডেটা ফেচ করার ফাংশন
 async function getIdeaDetails(id, token) {

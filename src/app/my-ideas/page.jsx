@@ -7,6 +7,11 @@ import { headers } from "next/headers";
 import { DeleteModel } from "@/component/deletepage";
 import { EditModal } from "@/component/Editmodel";
 
+export const metadata = {
+  title: 'My Ideas | Ideavalid',
+  description: 'Ideavalid is a platform that allows you to share your startup ideas with the world and get valuable feedback.',
+};
+
 const fetchMyIdeas = async (userid) => {
   try {
     const baseUrl =

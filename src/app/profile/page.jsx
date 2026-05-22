@@ -10,6 +10,9 @@ export default function ProfileUpdatePage() {
 
   const session = useSession();
   const sessionUser = session?.data?.user;
+  useEffect(() => {
+    document.title = "Profile | Ideavalid";
+  }, []);
 
   useEffect(() => {
     if (sessionUser) {
@@ -44,9 +47,7 @@ export default function ProfileUpdatePage() {
         }),
       });
 
-      if (!res.ok) {
-        throw new Error("Server responded with an error");
-      }
+     
 
       const data = await res.json();
 

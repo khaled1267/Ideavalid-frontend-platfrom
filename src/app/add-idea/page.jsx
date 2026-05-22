@@ -18,12 +18,18 @@ import { useRouter } from "next/navigation";
 
 
 
+
+
 export default function AddIdea() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
   const { data: session, isPending } = authClient.useSession();
   const user = session?.user;
+
+  useEffect(() => {
+    document.title = "Add-Idea | Ideavalid";
+  }, []);
 
   useEffect(() => {
     if (!isPending && !user) {

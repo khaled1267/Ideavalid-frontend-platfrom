@@ -5,6 +5,9 @@ import { Suspense } from "react";
 
 
 export default function Login() {
+  useEffect(() => {
+    document.title = "Login | Ideavalid";
+  }, []);
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <LoginContent />

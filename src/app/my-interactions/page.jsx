@@ -12,6 +12,10 @@ export default function MyInteractionsPage() {
   const currentUser = session?.data?.user;
 
   useEffect(() => {
+    document.title = "My Interactions | Ideavalid";
+  }, []);
+
+  useEffect(() => {
     const fetchMyComments = async () => {
       if (!currentUser?.email) return;
 

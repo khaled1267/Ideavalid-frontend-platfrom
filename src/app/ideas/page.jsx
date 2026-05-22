@@ -21,6 +21,10 @@ export default function IdeasPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    document.title = "Ideas | Ideavalid";
+  }, []);
+
+  useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/add-ideavalid`)
       .then((res) => res.json())
       .then((data) => {

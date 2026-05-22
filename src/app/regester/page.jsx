@@ -11,6 +11,10 @@ export default function Regester() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    document.title = "Regester | Ideavalid";
+  }, []);
+
   const handleRegister = async (e) => {
     e.preventDefault();
     setLoading(true); 

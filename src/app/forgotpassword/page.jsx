@@ -2,6 +2,11 @@ import React from "react";
 import Link from "next/link";
 import { KeyRound, ArrowLeft, Mail, ShieldCheck } from "lucide-react";
 
+
+export const metadata = {
+  title: 'Forgot Password | Ideavalid',
+  description: 'Ideavalid is a platform that allows you to share your startup ideas with the world and get valuable feedback.',
+};
 export default function ForgotPasswordPage() {
   return (
     <div className="w-full min-h-screen bg-[#FAFBFB] dark:bg-slate-950 text-slate-800 dark:text-slate-100 flex items-center justify-center p-4 relative overflow-hidden transition-colors duration-300">
